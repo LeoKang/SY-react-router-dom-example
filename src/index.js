@@ -13,11 +13,37 @@ function Home() {
   )
 }
 
+var contents = [
+  { id: 1, title: 'HTML', description: 'HTML is ...' },
+  { id: 2, title: 'JS', description: 'JS is ...' },
+  { id: 3, title: 'React', description: 'React is ...' },
+];
+
+function Topic() {
+  return (
+    <div>
+      <h3>Topic</h3>
+      Topic...
+    </div>
+  );
+}
+
 function Topics() {
+  var lis = [];
+  for (var i = 0; i < contents.length; i++) {
+    lis.push(
+      <li><NavLink to={"/topics/" + contents[i].id}>{contents[i].title}</NavLink></li>
+    );
+  }
   return (
     <div>
       <h2>Topics</h2>
-      Topics...
+      <ul>
+        {lis}
+      </ul>
+      <Routes>
+        <Route path="/:topic_id" element={<Topic />} />
+      </Routes>
     </div>
   )
 }
@@ -42,7 +68,7 @@ function App() {
       </ul>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/topics" element={<Topics />} />
+        <Route path="/topics/*" element={<Topics />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/*" element={'Not Found'} />
       </Routes>
